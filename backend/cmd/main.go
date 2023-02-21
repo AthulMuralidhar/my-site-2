@@ -14,7 +14,7 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", api.GetIndex)
+	mux.Handle("/", server.DefaultMiddleware(api.GetIndex))
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defaultServer := &http.Server{
@@ -30,7 +30,7 @@ func main() {
 		if errors.Is(err, http.ErrServerClosed) {
 			log.Println("Default server closed")
 		} else if err != nil {
-			log.Printf("Default server error: ", err)
+			log.Printf("Default server error: %v", err)
 		}
 		cancel()
 	}()
