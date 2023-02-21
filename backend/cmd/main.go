@@ -26,7 +26,6 @@ func main() {
 	}
 	go func() {
 		err := defaultServer.ListenAndServe()
-
 		if errors.Is(err, http.ErrServerClosed) {
 			log.Println("Default server closed")
 		} else if err != nil {

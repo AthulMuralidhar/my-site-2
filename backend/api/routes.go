@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 )
@@ -8,5 +9,9 @@ import (
 func GetIndex(writer http.ResponseWriter, req *http.Request) {
 	ctx := req.Context()
 	log.Printf("%s: got / request\n", ctx.Value(DefaultServerName))
-	writer.Write([]byte("Hello World - index page"))
+	data := "Hello World - index page"
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	writer.WriteHeader(http.StatusOK)
+	json.NewEncoder(writer).Encode(data)
 }
