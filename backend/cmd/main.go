@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/AthulMuralidhar/my-site-2/api"
+	"github.com/AthulMuralidhar/my-site-2/server"
 	"log"
 	"net"
 	"net/http"
@@ -20,7 +21,7 @@ func main() {
 		Addr:    ":8000",
 		Handler: mux,
 		BaseContext: func(listener net.Listener) context.Context {
-			ctx = context.WithValue(ctx, api.DefaultServerName, listener.Addr().String())
+			ctx = context.WithValue(ctx, server.DefaultServerName, listener.Addr().String())
 			return ctx
 		},
 	}
